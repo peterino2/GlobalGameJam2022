@@ -28,4 +28,4 @@ void FEmbAbility::ShutdownModule(){
 }
 
  
-IMPLEMENT_PRIMARY_GAME_MODULE(FEmbAbility, EmbAbility, "EmbAbility" );
+IMPLEMENT_GAME_MODULE(FEmbAbility, EmbAbility );

@@ -38,4 +38,4 @@ void FEmbNav::ShutdownModule(){
 }
 
  
-IMPLEMENT_PRIMARY_GAME_MODULE(FEmbNav, EmbNav, "EmbNav" );
+IMPLEMENT_GAME_MODULE(FEmbNav, EmbNav );

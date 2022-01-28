@@ -3,9 +3,9 @@
 using UnrealBuildTool;
 using System.Collections.Generic;
 
-public class EmbTarget : TargetRules
+public class CardGame2022Target : TargetRules
 {
-	public EmbTarget( TargetInfo Target) : base(Target)
+	public CardGame2022Target( TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V2;

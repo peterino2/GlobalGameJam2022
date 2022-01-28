@@ -28,4 +28,4 @@ void FEmbCore::ShutdownModule(){
 }
 
  
-IMPLEMENT_PRIMARY_GAME_MODULE(FEmbCore, EmbCore, "EmbCore" );
+IMPLEMENT_GAME_MODULE(FEmbCore, EmbCore);

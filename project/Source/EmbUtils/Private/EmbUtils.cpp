@@ -26,4 +26,4 @@ void FEmbUtils::ShutdownModule(){
 }
 
  
-IMPLEMENT_PRIMARY_GAME_MODULE(FEmbUtils, EmbUtils, "EmbUtils" );
+IMPLEMENT_GAME_MODULE(FEmbUtils, EmbUtils );

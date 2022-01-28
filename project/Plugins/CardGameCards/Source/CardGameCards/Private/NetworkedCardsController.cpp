@@ -60,15 +60,15 @@ void ANetworkedCardsController::SetupCardPlayerCameraPosition_Implementation(int
 void ANetworkedCardsController::SetPlayerNumberMulti_Implementation(int newPlayerNumber)
 {
 	PlayerNumber = newPlayerNumber;
-	if(UGameplayStatics::GetPlayerController(GetWorld(), 0) == this)
-	{
-		 SetupCardPlayerCameraPosition(newPlayerNumber);
-	}
+	UKismetSystemLibrary::PrintString(this, "What");
+	SetupCardPlayerCameraPosition(newPlayerNumber);
 }
 
 void ANetworkedCardsController::SetPlayerNumberServer_Implementation(int newPlayerNumber)
 {
 	PlayerNumber = newPlayerNumber;
+	UKismetSystemLibrary::PrintString(this, "What2");
+	SetupCardPlayerCameraPosition(newPlayerNumber);
 	SetPlayerNumberMulti(newPlayerNumber);
 }
 
