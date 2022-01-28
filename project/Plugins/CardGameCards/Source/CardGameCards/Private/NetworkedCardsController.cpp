@@ -53,7 +53,7 @@ void ANetworkedCardsController::SetupInputComponent()
 	InputComponent->BindAxis("RotateRightAxis", this, &ANetworkedCardsController::OnRotateRightAxis); 
 }
 
-void ANetworkedCardsController::SetupPlayerCameraPosition_Implementation(int playerNumber)
+void ANetworkedCardsController::SetupCardPlayerCameraPosition_Implementation(int playerNumber)
 {
 }
 
@@ -62,7 +62,7 @@ void ANetworkedCardsController::SetPlayerNumberMulti_Implementation(int newPlaye
 	PlayerNumber = newPlayerNumber;
 	if(UGameplayStatics::GetPlayerController(GetWorld(), 0) == this)
 	{
-		SetupPlayerCameraPosition(newPlayerNumber);
+		 SetupCardPlayerCameraPosition(newPlayerNumber);
 	}
 }
 

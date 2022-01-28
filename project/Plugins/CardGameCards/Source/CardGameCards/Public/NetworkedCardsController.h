@@ -29,13 +29,13 @@ protected:
 	int PlayerNumber = 0;
 
 	UFUNCTION(BlueprintNativeEvent)
-	void SetupPlayerCameraPosition(int playerNumber);
+	void SetupCardPlayerCameraPosition(int newPlayerNumber);
 
 	UFUNCTION(BlueprintCallable, Server, Reliable)
-	void SetPlayerNumberServer(int PlayerNumber);
+	void SetPlayerNumberServer(int newPlayerNumber);
 
 	UFUNCTION(NetMulticast, Reliable)
-	void SetPlayerNumberMulti(int PlayerNumber);
+	void SetPlayerNumberMulti(int newPlayerNumber);
 
 	// Input binds
 	UFUNCTION(BlueprintNativeEvent)
