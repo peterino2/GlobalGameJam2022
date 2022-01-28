@@ -25,6 +25,18 @@ protected:
 	UFUNCTION(BlueprintCallable, Server, Reliable)
 	void FlipCard(AActor* card, bool force=false);
 
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+	int PlayerNumber = 0;
+
+	UFUNCTION(BlueprintNativeEvent)
+	void SetupPlayerCameraPosition(int playerNumber);
+
+	UFUNCTION(BlueprintCallable, Server, Reliable)
+	void SetPlayerNumberServer(int PlayerNumber);
+
+	UFUNCTION(NetMulticast, Reliable)
+	void SetPlayerNumberMulti(int PlayerNumber);
+
 	// Input binds
 	UFUNCTION(BlueprintNativeEvent)
 	void OnSelectPressed();

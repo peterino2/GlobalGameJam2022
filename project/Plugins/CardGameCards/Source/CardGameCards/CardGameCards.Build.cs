@@ -1,4 +1,4 @@
-// Some copyright should be here...
+// CREATED FOR A GAMEJAM
 
 using UnrealBuildTool;
 

@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// CREATED FOR A GAMEJAM
 
 #include "CardGameCardsBPLibrary.h"
 #include "CardGameCards.h"

@@ -4,6 +4,7 @@
 #include "NetworkedCardsController.h"
 
 #include "NetworkedCard.h"
+#include "Kismet/GameplayStatics.h"
 
 
 // Sets default values
@@ -50,6 +51,25 @@ void ANetworkedCardsController::SetupInputComponent()
 	InputComponent->BindAction("RotateControl", IE_Pressed, this, &ANetworkedCardsController::OnRotateControlPressed); 
 
 	InputComponent->BindAxis("RotateRightAxis", this, &ANetworkedCardsController::OnRotateRightAxis); 
+}
+
+void ANetworkedCardsController::SetupPlayerCameraPosition_Implementation(int playerNumber)
+{
+}
+
+void ANetworkedCardsController::SetPlayerNumberMulti_Implementation(int newPlayerNumber)
+{
+	PlayerNumber = newPlayerNumber;
+	if(UGameplayStatics::GetPlayerController(GetWorld(), 0) == this)
+	{
+		SetupPlayerCameraPosition(newPlayerNumber);
+	}
+}
+
+void ANetworkedCardsController::SetPlayerNumberServer_Implementation(int newPlayerNumber)
+{
+	PlayerNumber = newPlayerNumber;
+	SetPlayerNumberMulti(newPlayerNumber);
 }
 
 void ANetworkedCardsController::FlipCard_Implementation(AActor* target, bool force)
