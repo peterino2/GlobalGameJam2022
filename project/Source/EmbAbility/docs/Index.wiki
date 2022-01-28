@@ -1,0 +1,13 @@
+== EmbAbility ==
+
+This module contains all the code pertaining to the 
+binding of the gameplay ability system.
+
+Including extra abilitysystem tasks.
+
+Damage resolvers, and specializations of the 
+AbilitySystemComponent.
+
+In addition it will contain abilitysystem tasks, 
+targeting actors. and helpers for ability 
+activation.

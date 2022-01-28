@@ -1,0 +1,28 @@
+== Emb Nav ==
+
+Grid navigation system for turn based RPGs.
+
+=== v0.1.0 ===
+
+- [ ] GridManager Actor
+    - [ ] Futomatic grid generation
+    - [ ] Not full regeneration but area based generation.
+- [ ] Walkable Engine Trace setting
+- [ ] Blueprint exposure for all functionality
+- [ ] Long Async navigation task.
+- [ ] GridActor Component.
+- [ ] Movement and placement utilities (multigird, 2x2 3x3 monster movement)
+- [ ] Halfgrid? hmm... this could be a distinct possibility.
+    - [ ] Each character would have a size. and their position on the map is representedby just a position.
+    - [ ] All bounds checking would be done relative to their size.
+    - [ ] What would be the most efficient ways of doing this?
+- [ ] Overhangs, towers, ladders, grid links
+
+Ok lets sketch out a few things. 
+
+== rev 1 ==
+
+flow of data:
+    - [ ] Editor places walkable grid planes into the world.
+    - [ ] Each grid automatically tests if each grid can be visible from place to place.
+    - [ ] A linking phase searches through grid planes at runtime to determine which grid planes automatically link against which other grid planes
