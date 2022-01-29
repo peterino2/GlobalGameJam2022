@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Modules/ModuleInterface.h"
 
-class FEmbAbility: public IModuleInterface
+class FEmbAbility: public FDefaultGameModuleImpl
 {
     public:
         static inline FEmbAbility& Get()

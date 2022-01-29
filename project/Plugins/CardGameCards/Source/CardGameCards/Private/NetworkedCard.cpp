@@ -18,12 +18,19 @@ ANetworkedCard::ANetworkedCard()
 void ANetworkedCard::BeginPlay()
 {
 	Super::BeginPlay();
+
+	cardName = FText::FromString("Networked Card Base");
+	cardDescription = FText::FromString("This card does nothing.");
+	flavourText = FText::FromString("This is a card, I wonder what it does?");
+	isFaceUp = false;
+	inHand = false;
+	bReplicates = true;
+	
 }
 
 void ANetworkedCard::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME_CONDITION_NOTIFY(ANetworkedCard, inHand, COND_None, REPNOTIFY_OnChanged);
 	DOREPLIFETIME_CONDITION_NOTIFY(ANetworkedCard, isFaceUp, COND_None, REPNOTIFY_OnChanged);
 }
 
@@ -34,6 +41,11 @@ void ANetworkedCard::OnRep_isFaceUp()
 
 void ANetworkedCard::RegisterCardEvents()
 {
+}
+
+void ANetworkedCard::OnPlay_Implementation()
+{
+	// this card was played
 }
 
 void ANetworkedCard::TryFlipCardServer_Implementation(APlayerController* player, bool force)
@@ -50,6 +62,14 @@ void ANetworkedCard::TryFlipCardServer_Implementation(APlayerController* player,
 }
 
 void ANetworkedCard::OnFlipCard_Implementation()
+{
+}
+
+void ANetworkedCard::OnAddedToHand_Implementation()
+{
+}
+
+void ANetworkedCard::OnAddedToDeck_Implementation()
 {
 }
 

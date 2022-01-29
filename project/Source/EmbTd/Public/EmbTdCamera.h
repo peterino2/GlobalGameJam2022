@@ -31,7 +31,7 @@ class EMBTD_API AEmbTdCamera : public APawn
 
 public:
 	// Sets default values for this pawn's properties
-	AEmbTdCamera();
+	AEmbTdCamera(const FObjectInitializer& ObjectInitializer);
 	/** Returns TopDownCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetTopDownCameraComponent() const { return TopDownCameraComponent; }
 	/** Returns CameraBoom subobject **/

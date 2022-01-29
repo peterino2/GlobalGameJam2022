@@ -8,7 +8,7 @@
 #include "preproc_etos.h"
 #include "preproc_repeat.h"
 
-class FEmbUtils: public IModuleInterface
+class FEmbUtils: public FDefaultGameModuleImpl
 {
     public:
         static inline FEmbUtils& Get()

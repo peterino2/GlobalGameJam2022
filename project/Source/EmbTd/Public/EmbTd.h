@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Modules/ModuleInterface.h"
 
-class FEmbTd: public IModuleInterface
+class FEmbTd: public FDefaultGameModuleImpl
 {
     public:
         static inline FEmbTd& Get()

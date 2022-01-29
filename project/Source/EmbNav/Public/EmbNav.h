@@ -15,7 +15,7 @@
 #include "CoreMinimal.h"
 #include "Modules/ModuleInterface.h"
 
-class FEmbNav: public IModuleInterface
+class FEmbNav: public FDefaultGameModuleImpl
 {
     public:
         static inline FEmbNav& Get()

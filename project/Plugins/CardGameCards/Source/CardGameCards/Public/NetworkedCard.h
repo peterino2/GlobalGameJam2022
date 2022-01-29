@@ -15,16 +15,22 @@ class CARDGAMECARDS_API ANetworkedCard : public AActor
 {
 	GENERATED_BODY()
 
+public:
 	// Sets default values for this actor's properties
 	ANetworkedCard();
 
-public:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Replicated)
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+	bool onField;
+	
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+	bool inDeck;
+	
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
 	bool inHand;
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Replicated, ReplicatedUsing=OnRep_isFaceUp)
@@ -36,12 +42,15 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	APlayerController* OwnerPlayer;
 	
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FText cardName;
 	
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FText cardDescription;
-
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FText flavourText;
+	
 	UFUNCTION()
 	void RegisterCardEvents();
 	
@@ -50,8 +59,18 @@ public:
 	
 	UFUNCTION(BlueprintNativeEvent)
 	void OnFlipCard();
+	
+	UFUNCTION(BlueprintNativeEvent)
+	void OnAddedToHand();
+	
+	UFUNCTION(BlueprintNativeEvent)
+	void OnAddedToDeck();
+
+	UFUNCTION(BlueprintNativeEvent)
+	void OnPlay();
 
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 };
+

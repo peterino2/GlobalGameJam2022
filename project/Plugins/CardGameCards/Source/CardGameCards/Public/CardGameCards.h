@@ -4,7 +4,7 @@
 
 #include "Modules/ModuleManager.h"
 
-class FCardGameCardsModule : public IModuleInterface
+class FCardGameCardsModule : public FDefaultGameModuleImpl
 {
 public:
 
