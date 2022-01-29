@@ -15,29 +15,42 @@ void ACCH_PlayerPawn::BeginPlay()
 	Super::BeginPlay();
 }
 
-void ACCH_PlayerPawn::AddCardToDeckServer_Implementation(ANetworkedCard* card)
+void ACCH_PlayerPawn::AddCardToDeckServer_Implementation(ANetworkedCard* card, bool scheme)
 {
-	AddCardToDeckLocal(card);
-	AddCardToDeckMulti(card);
+	AddCardToDeckLocal(card, scheme);
+	AddCardToDeckMulti(card, scheme);
 }
 
-void ACCH_PlayerPawn::AddCardToDeckMulti_Implementation(ANetworkedCard* card)
+void ACCH_PlayerPawn::AddCardToDeckMulti_Implementation(ANetworkedCard* card, bool scheme)
 {
-	AddCardToDeckLocal(card);
+	AddCardToDeckLocal(card, scheme);
 }
 
-void ACCH_PlayerPawn::AddCardToDeckLocal(ANetworkedCard* card)
+void ACCH_PlayerPawn::AddCardToDeckLocal(ANetworkedCard* card, bool scheme)
 {
-	cardsInDeck.AddUnique(card);
+	auto& deck = scheme ? cardsInSchemeDeck : cardsInDeck;
+	deck.AddUnique(card);
 	card->OnAddedToDeck();
 }
 
-void ACCH_PlayerPawn::TryDrawCard_Implementation()
+void ACCH_PlayerPawn::DrawCard(bool scheme)
 {
-	if(cardsInDeck.Num() > 0)
+	auto& deck = scheme? cardsInSchemeDeck: cardsInDeck;
+	if(deck.Num() > 0 && !HasAuthority())
 	{
-		ANetworkedCard* nextCard = cardsInDeck.Top();
-		cardsInDeck.Remove(nextCard);
+		ANetworkedCard* nextCard = deck.Top();
+		deck.Remove(nextCard);
+	}
+	TryDrawCard(scheme);
+}
+
+void ACCH_PlayerPawn::TryDrawCard_Implementation(bool scheme)
+{
+	auto& deck = scheme? cardsInSchemeDeck: cardsInDeck;
+	if(deck.Num() > 0)
+	{
+		ANetworkedCard* nextCard = deck.Top();
+		deck.Remove(nextCard);
 		AddCardToHandServer(nextCard);
 	}
 	else {
@@ -77,6 +90,7 @@ void ACCH_PlayerPawn::SetupDeck(TArray<FCardInitInfo> InitialCards)
 	if(GetLocalRole() != ROLE_Authority) {return;}
 
 	TArray<ANetworkedCard* > cardList;
+	TArray<ANetworkedCard* > schemeCardList;
 
 	for(auto cardInfo : InitialCards)
 	{
@@ -86,6 +100,7 @@ void ACCH_PlayerPawn::SetupDeck(TArray<FCardInitInfo> InitialCards)
 			*cdo->cardName.ToString(),
 			cardInfo.cardCount
 		));
+
 		// use this form for When we're playing cards to the board.
 		// auto* newCard = Cast<ANetworkedCard>(GetWorld()->SpawnActor(cardInfo.cardClass.Get(), &spawnTransform, spawn_params));
 		for(int i = 0; i < cardInfo.cardCount; i++)
@@ -94,25 +109,42 @@ void ACCH_PlayerPawn::SetupDeck(TArray<FCardInitInfo> InitialCards)
 			FActorSpawnParameters spawnParams;
 			spawnParams.Owner = this;
 			auto* newCard = Cast<ANetworkedCard>(GetWorld()->SpawnActor(cardInfo.cardClass.Get(), &spawnTransform, spawnParams));
-			//ANetworkedCard* newCard = NewObject<ANetworkedCard>(this, cardInfo.cardClass);
-			cardList.Add(newCard);
+			// ANetworkedCard* newCard = NewObject<ANetworkedCard>(this, cardInfo.cardClass);
+			// auto& deck = cardInfo.isScheme ? cardsInSchemeDeck : cardsInDeck;
+			AddCardToDeckServer(newCard, cardInfo.isScheme);
 		}
 	}
-	
+}
+
+void ACCH_PlayerPawn::TryShuffleDeck_Implementation(bool shuffleSchemeDeck)
+{
 	// shuffle the deck
-	int32 LastIndex = cardList.Num() - 1;
+	auto& deck = shuffleSchemeDeck ? cardsInSchemeDeck : cardsInDeck;
+	
+	int32 LastIndex = deck.Num() - 1;
 	for (int32 i = 0; i <= LastIndex; ++i)
 	{
 		int32 Index = FMath::RandRange(i, LastIndex);
 		if (i != Index)
 		{
-			cardList.Swap(i, Index);
+			 deck.Swap(i, Index);
 		}
 	}
+	
+	ShuffleDeckMulti(deck, shuffleSchemeDeck);
+}
 
-	for(auto* card : cardList)
+void ACCH_PlayerPawn::ShuffleDeckMulti_Implementation(const TArray<ANetworkedCard*>& newDeckList, bool shuffleSchemeDeck)
+{
+	auto& deck = (shuffleSchemeDeck ? cardsInSchemeDeck : cardsInDeck);
+	if(deck.Num() != newDeckList.Num())
 	{
-		AddCardToDeckServer(card);
+	}
+	deck.Empty();
+
+	for(auto* card: newDeckList)
+	{
+		deck.AddUnique(card);
 	}
 }
 
