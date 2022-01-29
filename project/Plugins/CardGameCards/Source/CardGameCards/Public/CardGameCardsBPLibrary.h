@@ -29,4 +29,13 @@ class UCardGameCardsBPLibrary : public UBlueprintFunctionLibrary
 
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute Sample function", Keywords = "CardGameCards sample test testing"), Category = "CardGameCardsTesting")
 	static float CardGameCardsSampleFunction(float Param);
+
+	UFUNCTION(BlueprintCallable)
+	static inline bool HasEditor(){
+#if WITH_EDITOR
+		return true;
+#else
+		return false;
+#endif // WITH_EDITOR
+	}
 };

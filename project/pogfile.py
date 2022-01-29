@@ -61,3 +61,7 @@ def run_tests():
     uedtior_do('-editortest', '-execcmds="Automation RunTests"');
     pass
 
+@job(default=False)
+def upload_to_itch():
+    env.run("butler", 'push', 'Builds/WindowsNoEditor', 'peterino2/CardGame:windows')
+    pass
