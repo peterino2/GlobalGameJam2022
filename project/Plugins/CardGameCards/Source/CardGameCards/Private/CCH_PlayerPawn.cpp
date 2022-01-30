@@ -142,13 +142,6 @@ void ACCH_PlayerPawn::SetupDeck(TArray<FCardInitInfo> InitialCards)
 
 	for(auto cardInfo : InitialCards)
 	{
-		auto* cdo = cardInfo.cardClass.GetDefaultObject();
-		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Cyan, FString::Printf(
-			TEXT("%s count: %d"),
-			*cdo->cardName.ToString(),
-			cardInfo.cardCount
-		));
-
 		// use this form for When we're playing cards to the board.
 		// auto* newCard = Cast<ANetworkedCard>(GetWorld()->SpawnActor(cardInfo.cardClass.Get(), &spawnTransform, spawn_params));
 		for(int i = 0; i < cardInfo.cardCount; i++)
