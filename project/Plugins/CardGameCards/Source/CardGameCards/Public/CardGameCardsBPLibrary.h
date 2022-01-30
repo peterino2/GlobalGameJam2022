@@ -29,6 +29,30 @@ class UCardGameCardsBPLibrary : public UBlueprintFunctionLibrary
 
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute Sample function", Keywords = "CardGameCards sample test testing"), Category = "CardGameCardsTesting")
 	static float CardGameCardsSampleFunction(float Param);
+	
+	UFUNCTION(BlueprintCallable)
+	static inline int findLowest(TArray<int> integers)
+	{
+		int lowest = 9999;
+		int lowestIndex = 0;
+		for(int i =0; i < integers.Num(); i++)
+		{
+			if(integers[i] == lowest)
+			{
+				if(rand() % 2 == 0)
+				{
+					lowestIndex = i;
+				}
+			}
+			if (integers[i] < lowest)
+			{
+				lowestIndex = i;
+				lowest = integers[i];
+			}
+		}
+
+		return lowestIndex;
+	}
 
 	UFUNCTION(BlueprintCallable)
 	static inline bool HasEditor(){
