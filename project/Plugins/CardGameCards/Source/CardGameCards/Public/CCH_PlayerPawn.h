@@ -89,6 +89,21 @@ protected:
 	UFUNCTION(NetMulticast, Reliable)
 	void AddCardToHandLocal(ANetworkedCard* card);
 
+	UFUNCTION(BlueprintCallable, Server, Reliable)
+	void TryPlayCard(ANetworkedCard* card);
+	
+	UFUNCTION(NetMulticast, Reliable)
+	void PlayCardMulti(ANetworkedCard* card);
+	
+	UFUNCTION()
+	void PlayCardLocal(ANetworkedCard* card);
+
+	UFUNCTION(BlueprintNativeEvent)
+	void OnCardPlay( ANetworkedCard* card);
+
+	UFUNCTION(BlueprintNativeEvent)
+	void OnDraw();
+
 	virtual void OnRep_PlayerState() override;
 
 	UFUNCTION(BlueprintCallable)

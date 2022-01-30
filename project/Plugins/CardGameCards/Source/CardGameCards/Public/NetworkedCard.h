@@ -35,6 +35,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Replicated, ReplicatedUsing=OnRep_isFaceUp)
 	bool isFaceUp;
+	
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Replicated)
+	bool isScheme = false;
 
 	UFUNCTION()
 	void OnRep_isFaceUp();
@@ -59,6 +62,9 @@ public:
 	
 	UFUNCTION(BlueprintNativeEvent)
 	void OnFlipCard();
+	
+	UFUNCTION(BlueprintNativeEvent)
+	void OnPlayedFromHand();
 	
 	UFUNCTION(BlueprintNativeEvent)
 	void OnAddedToHand();

@@ -32,6 +32,7 @@ void ANetworkedCard::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME_CONDITION_NOTIFY(ANetworkedCard, isFaceUp, COND_None, REPNOTIFY_OnChanged);
+	DOREPLIFETIME_CONDITION_NOTIFY(ANetworkedCard, isScheme, COND_None, REPNOTIFY_OnChanged);
 }
 
 void ANetworkedCard::OnRep_isFaceUp()
@@ -40,6 +41,10 @@ void ANetworkedCard::OnRep_isFaceUp()
 }
 
 void ANetworkedCard::RegisterCardEvents()
+{
+}
+
+void ANetworkedCard::OnPlayedFromHand_Implementation()
 {
 }
 

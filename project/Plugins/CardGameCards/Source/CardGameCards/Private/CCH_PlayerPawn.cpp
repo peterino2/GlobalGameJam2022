@@ -30,6 +30,10 @@ void ACCH_PlayerPawn::AddCardToDeckLocal(ANetworkedCard* card, bool scheme)
 {
 	auto& deck = scheme ? cardsInSchemeDeck : cardsInDeck;
 	deck.AddUnique(card);
+	card->inDeck = true;
+	card->inHand = false;
+	card->onField = false;
+	card->isFaceUp = false;
 	card->OnAddedToDeck();
 }
 
@@ -42,6 +46,41 @@ void ACCH_PlayerPawn::DrawCard(bool scheme)
 		deck.Remove(nextCard);
 	}
 	TryDrawCard(scheme);
+}
+
+void ACCH_PlayerPawn::TryPlayCard_Implementation(ANetworkedCard* card)
+{
+	PlayCardLocal(card);
+	PlayCardMulti(card);
+}
+
+void ACCH_PlayerPawn::PlayCardMulti_Implementation(ANetworkedCard* card)
+{
+	PlayCardLocal(card);
+}
+
+void ACCH_PlayerPawn::PlayCardLocal(ANetworkedCard* card)
+{
+	cardsInHand.Remove(card);
+
+	card->inHand = false;
+	card->onField = true;
+	card->inDeck = false;
+	if(card->isScheme)
+	{
+		spentSchemeCards.AddUnique(card);
+	}
+	else
+	{
+		spentCards.AddUnique(card);
+	}
+	
+	card->OnPlayedFromHand();
+	OnCardPlay(card);
+}
+
+void ACCH_PlayerPawn::OnCardPlay_Implementation(ANetworkedCard* card)
+{
 }
 
 void ACCH_PlayerPawn::TryDrawCard_Implementation(bool scheme)
@@ -71,13 +110,22 @@ void ACCH_PlayerPawn::AddCardToHandMulti_Implementation(ANetworkedCard* card)
 {
 	if(!card) return;
 	AddCardToHandLocal(card);
+	OnDraw();
 }
 
 void ACCH_PlayerPawn::AddCardToHandLocal_Implementation(ANetworkedCard* card)
 {
 	if(!card) return;
 	cardsInHand.AddUnique(card);
+	card->inDeck = false;
+	card->inHand = true;
+	card->onField = false;
+	card->isFaceUp = false;
 	card->OnAddedToHand();
+}
+
+void ACCH_PlayerPawn::OnDraw_Implementation()
+{
 }
 
 void ACCH_PlayerPawn::OnRep_PlayerState()
@@ -109,6 +157,7 @@ void ACCH_PlayerPawn::SetupDeck(TArray<FCardInitInfo> InitialCards)
 			FActorSpawnParameters spawnParams;
 			spawnParams.Owner = this;
 			auto* newCard = Cast<ANetworkedCard>(GetWorld()->SpawnActor(cardInfo.cardClass.Get(), &spawnTransform, spawnParams));
+			newCard->isScheme = cardInfo.isScheme;
 			// ANetworkedCard* newCard = NewObject<ANetworkedCard>(this, cardInfo.cardClass);
 			// auto& deck = cardInfo.isScheme ? cardsInSchemeDeck : cardsInDeck;
 			AddCardToDeckServer(newCard, cardInfo.isScheme);
