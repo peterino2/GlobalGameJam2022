@@ -18,14 +18,9 @@ ANetworkedCard::ANetworkedCard()
 void ANetworkedCard::BeginPlay()
 {
 	Super::BeginPlay();
-
-	cardName = FText::FromString("Networked Card Base");
-	cardDescription = FText::FromString("This card does nothing.");
-	flavourText = FText::FromString("This is a card, I wonder what it does?");
 	isFaceUp = false;
 	inHand = false;
 	bReplicates = true;
-	
 }
 
 void ANetworkedCard::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
