@@ -37,6 +37,10 @@ void ACCH_PlayerPawn::AddCardToDeckLocal(ANetworkedCard* card, bool scheme)
 	card->OnAddedToDeck();
 }
 
+void ACCH_PlayerPawn::OnDrawServer_Implementation()
+{
+}
+
 void ACCH_PlayerPawn::DrawCard(bool scheme)
 {
 	auto& deck = scheme? cardsInSchemeDeck: cardsInDeck;
@@ -91,6 +95,11 @@ void ACCH_PlayerPawn::TryDrawCard_Implementation(bool scheme)
 		ANetworkedCard* nextCard = deck.Top();
 		deck.Remove(nextCard);
 		AddCardToHandServer(nextCard);
+		cardsDrawn += 1;
+		OnDrawServer();
+		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Cyan, FString::Printf(
+			TEXT("Cards Drawn %d") , cardsDrawn
+		));
 	}
 	else {
 		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Cyan, FString::Printf(

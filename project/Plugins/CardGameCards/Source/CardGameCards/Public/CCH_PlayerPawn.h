@@ -41,6 +41,9 @@ protected:
 
 	// All card and Hand Control effects are handled here
 	
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+	int cardsDrawn = 0;
+	
 	bool isInitialized = false;
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
@@ -72,6 +75,9 @@ protected:
 	
 	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly)
 	AActor* PlayerSchemeDeck;
+
+	UFUNCTION(BlueprintNativeEvent)
+	void OnDrawServer();
 
 	// Requests the server for what's the next card in my deck.
 	UFUNCTION(BlueprintCallable, Server, Reliable)
