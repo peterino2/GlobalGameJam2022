@@ -20,3 +20,5 @@ void FCardGameCardsModule::ShutdownModule()
 #undef LOCTEXT_NAMESPACE
 	
 IMPLEMENT_GAME_MODULE(FCardGameCardsModule, CardGameCards)
+
+DEFINE_LOG_CATEGORY(LogCardGame);

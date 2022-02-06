@@ -1,0 +1,35 @@
+
+- Create A story mode:
+    - Different rules:
+    - New decks of cards available for the hero to use.
+    - You now have a survival stat that needs to be managed, as well as an EGO stat
+    - Heroes no longer have a WIL stat
+        - Diplomacy cards now give you money
+        - Showboating now adds to your EGO
+    - If your EGO or MONEY reaches 0. You lose the run.
+
+- you start with a weak standard deck:
+    - facing off against:
+        - Other villains
+        - weak superheroes
+    - after clearing a few of these challenges; you face off against the first boss hero:
+        - smartly darkly
+    - after facing off against a few other challenges you will face off against the second boss hero:
+        - terrific man
+    - after beating terrific man:
+        - you will face off against Queen Glorious
+
+Player mechanics 
+
+- Draw cards from scheme deck or actions deck
+- Running out of cards for both decks means you die
+- implemented as villainfamous_cityClimb gamemode
+
+- scheme cards behave differently in this game mode each one of them has a unique effect
+
+- enemies will show what card they're going to play next.
+
+After playing a card you can choose which slot it goes into.
+schemes positioning matters on the cards.
+
+
